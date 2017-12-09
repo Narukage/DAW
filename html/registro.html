@@ -1,0 +1,73 @@
+<!DOCTYPE HTML>
+
+<html lang="es">
+
+	<head>
+
+		<meta charset="utf-8" />
+		<title>PICSY-Registro</title>
+		<link rel="stylesheet" type="text/css" href="paginaprincipal.css" title="Estilo principal" media="screen"> 
+		<link rel="stylesheet" type="text/css" href="impresion.css" title="Estilo para imprimir" media="print">
+		<link rel="alternate stylesheet" type="text/css" href="accesible.css" title="Estilo accesible">
+		
+	</head>
+
+
+	<body>
+
+		<header>
+
+			<a title="Logo PICSY" href="index.html"><img src="logo.png" id="logo" alt="Logotipo de PICSY"></a>
+
+		</header>
+
+		<h2 title="Título" class="titulos">Registro</h2>
+
+		<form title="Formulario de registro de nuevo usuario" id="registro" action="index-registrado.html">
+			<fieldset>
+				<legend id="iniciarsesion">Datos de usuario</legend>
+				<p>
+					<label for="nombre">Nombre de usuario:</label> <input type="text" id="nombre" required  >
+				</p>
+				<p>
+					<label for="contraseña">Contraseña:</label> <input type="password" name="contraseña1" id="contraseña" required>
+				</p>
+				<p>
+					<label for="repetir">Repetir contraseña:</label> <input type="password" name="contraseña2" id="repetir" required>
+				</p>
+				<p>
+					<label for="correo" id="email">Email:</label> <input type="email" placeholder="miusuario@hotmail.com" id="correo" required >
+				</p>
+				
+				<p>
+					Sexo:
+				</p>
+				<p>
+					<label>Hombre<input type="radio" name="gender" value="male" checked required > </label> 
+					<label>Mujer<input type="radio" name="gender" value="female" required > </label>
+				</p>
+				<p>
+					<label for="nacimiento">Fecha de nacimiento:</label> <input type="date" name="fecha" id="nacimiento" required />
+				</p>
+				<p>
+					<label for="ciudad">Ciudad:</label> <input type="text" id="ciudad" required>
+				</p>
+				<p>
+					<label for="pais">País :</label> <input type="text" id="pais" required>
+				</p>
+				<p>
+					<label for="foto" id="subirf">Foto de perfil:</label> <input type="file" name="pic" accept="image/*" id="foto" required>
+				</p>
+				<p>
+					<input title="Crea tu usuario" type="submit" value="Registrarme" class="centrado">
+				</p>
+			</fieldset>
+		</form>
+		
+		<footer title="Pie de página">
+			&copy; Blanca Vázquez Paredes y Yolanda Cruz Girona
+		</footer>
+
+	</body>
+
+</html>

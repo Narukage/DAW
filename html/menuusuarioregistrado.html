@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+
+<html lang="es">
+
+	<head>
+
+		<meta charset="UTF-8"/>
+		<title>PISCY-Menu usuario registrado</title>
+		 <link rel="stylesheet" type="text/css" href="paginaprincipal.css" title="Estilo principal" media="screen"> 
+		<link rel="stylesheet" type="text/css" href="impresion.css" title="Estilo para imprimir" media="print">
+		<link rel="alternate stylesheet" type="text/css" href="accesible.css" title="Estilo accesible">
+
+	</head>
+
+	<body>
+
+		<header>
+			
+			<a title="Logo PICSY" href="index-registrado.html"><img src="logo.png" id="logo" alt="Logotipo de PICSY"></a>
+			
+		</header>
+		
+		<main>
+
+			<section>
+				<ul class=navegacion>
+					<li><a title="Formulario de solicitud de album" href="paginaSolicitarAlbum.php">Solicitar album</a></li>
+					<li><a title="Desconectar tu usuario de la página" href="index.php">Cerrar sesión</a></li>
+				</ul>
+
+				<p class="contenedorb">
+					<input title="" type="submit" value="Mis albumes">
+					<a title="Crear album" href="crearalbum.php">Crear álbum</a>
+				</p>
+			</section>
+			<form title="Datos del usuario">
+			<fieldset id="usuarito">
+				<legend id="iniciarsesion">Datos de usuario</legend>
+				
+				<img title="Foto de perfil del usuario" src="fotousuario.jpg" alt="Imagen Usuario" id="fotousuario">
+
+				<br>
+
+				
+					<label for="editar" id="cambiar" ><b>Editar foto de perfil:</b></label>
+					<input name="imagen"  type="file" id="editar" />
+					<input name="subir" id="desaparecer1" type="submit" value="subir"/>
+				
+
+				<p>
+					<b>Nombre:</b> Pepito Morales
+				</p>
+				<p>
+					<b>Correo electrónico:</b> pepitomorales@yopmail.com
+		    	</p>
+				<p>
+					<b>Edad:</b> 103
+				</p>
+				<p>
+					<b>Pais:</b> España
+		    	</p>
+				<p>
+					<b>Ciudad:</b> Alicante
+		   		</p>
+				<p>
+					<b>Sexo:</b> Hombre
+		    	</p>
+				<p>
+					<b>Nacimiento:</b> 22/01/1915
+		    	</p>
+
+				<p>
+					<input title="Modificar cualquier dato del usuario" type="submit" class="centrado" value="Modificar datos">
+					<input title="Borrar tu usuario de la página" type="submit" class="centrado" value="Darse de baja">
+				</p>
+			</fieldset>
+			</form>
+			
+		</main>
+			
+		<footer title="Pie de página">
+			&copy; Blanca Vázquez Paredes y Yolanda Cruz Girona
+		</footer>
+		
+	</body>
+
+</html>
+	
+	

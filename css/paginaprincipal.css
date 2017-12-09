@@ -1,0 +1,629 @@
+
+html{
+    position: relative;
+    min-height: 100%;
+    overflow-y: scroll;
+}
+
+ul {
+  list-style-type: none;
+}
+
+#desplegable, #cerri, #ini{
+
+	display:none;
+}
+
+.atras{
+  width: 50px; height: 50px;
+}
+
+aside{
+	float: left;
+	margin-left: 5%;
+
+}
+
+
+li img {
+ border: 5px solid #fff;
+ margin: auto;
+margin-bottom: 0px;
+width: 200px; height: 150px;
+padding: 0;
+clear: both;
+float: left;
+}
+
+section{
+	width: 100%;
+	display: table;
+}
+
+
+li img:hover {
+  -webkit-box-shadow: 0px 0px 7px rgba(255,255,255,0.9);
+  box-shadow: 0px 0px 7px rgba(255,255,255,0.9);
+}
+
+header {
+    background-color: #262626;
+    color: black;
+    /*display: block;*/
+    position: relative;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 250px; /*cambiar a auto otra vez y alinear la barra de*/
+    padding: 0;
+    margin-bottom: 0;
+	margin: 0 auto;
+}
+
+.navegando{
+
+
+	display: table;
+}
+
+ul.navegacion {
+    list-style-type: none;
+	/*display:block;*/
+	padding-top: 1%;
+	margin: 0;
+	float:none;
+    overflow: hidden;
+    background-color: rgba(252, 95, 5, 0.8);
+	padding-left: 10px;
+
+}
+
+#avanzada, #registrate, #menudelusuario{
+	float:right;
+}
+
+
+.foticos{
+
+	padding-bottom: 2em;
+}
+
+.foticos li {
+
+	clear: right;
+	float: left;
+
+}
+
+
+
+li {
+    float: left;
+}
+
+li a {
+    display: block;
+    color: black;
+    text-align: right;
+    padding: 14px 16px;
+    text-decoration: none;
+	float: right;
+	clear: both;
+}
+
+
+
+
+li a:hover:not(.active){
+ background-color:  rgba(252, 95, 5, 1);
+ color: #262626;
+ font-weight: bold;
+}
+
+li p {
+
+	text-align: center;
+	margin-top: -5px;
+}
+
+
+
+body{
+
+font-family: Arial, sans-serif;
+margin: 0px 0px 30px; /*los 30 px justo va a ser lo que ocupa el footer, NO CAMBIAR*/
+background-attachment: fixed;
+background-color: #DBD6D0;
+height: 100%;
+/*background-image: url("backgroundoriginal.jpg");*/
+
+}
+
+#contenedorb{
+
+	padding: 0px;
+}
+
+
+#contenedorb input[type=text]{
+    height: 30px;
+    /*background: rgba(252, 95, 5, 0.7);*/
+    outline: none;
+    border: none;
+    font-size: 10pt;
+    color: #637170;
+  	padding-left: 10px;
+    border-radius: 5px;
+}
+
+
+.centrado {margin-top: 10px;}
+
+fieldset.buscar{
+
+	border: 2px solid #939393;
+	color: black;
+	width: 700px;
+	margin: auto;
+	background-color: rgba(252, 95, 5, 0.7);
+
+}
+
+fieldset{
+
+	border: 2px solid #939393;
+	color: black;
+	width: 40%;
+	background-color: rgba(252, 95, 5, 0.7);
+	display: block;
+	margin: auto;
+
+}
+
+
+/*Alineacion del formulario*/
+
+form {
+
+    width: auto;
+    margin-right: auto;
+    margin-left: auto;
+    margin-top:auto;
+    margin-bottom: 1em;
+
+}
+
+
+form label {
+
+    display: inline-block;
+    width: 150px;
+}
+
+
+
+
+#informacion{
+
+	margin-left: 4%;
+   margin-right: 4%;
+   padding-left: 1%;
+   padding-top: 1%;
+   padding-bottom: 1%;
+   border-radius: 8px;
+   border: 2px solid #4f4f4f;
+   background-color: rgba(252, 95, 5, 0.7);
+   text-align: center;
+}
+
+#logo{
+
+	width: 200px;
+	height: 200px;
+	padding: 10px;
+   	position: absolute;
+    top: 0; bottom:0; left: 0; right:0;
+    margin: auto;
+}
+
+
+#logoimpresion, #logoaccesible{
+
+	display:none;
+}
+
+
+
+
+
+table{
+
+	margin: 0 auto;
+	border-style: groove;
+}
+
+
+
+input[type=submit]{
+
+	font-size: 100%;
+	font-weight: bold;
+	background-color: rgba(252, 95, 5, 1);
+	cursor: pointer;
+	border-radius: 20%;
+	padding: 10px;
+	border: 2px solid black;
+	text-align: center;
+}
+.centrado {margin: 10px 100px;}
+
+button {
+	font-size: 100%;
+	font-weight: bold;
+	background-color: rgba(252, 95, 5, 1);
+	cursor: pointer;
+	border-radius: 20%;
+	padding: 10px;
+	border: 2px solid black;
+
+
+}
+
+#albumnuevo, #creaalbum, #accedo, #salgo, #misalbumes, #nuevafoto, #atras, #returning{
+	font-size: 100%;
+	font-weight: bold;
+	background-color: rgba(252, 95, 5, 1);
+	cursor: pointer;
+	border-radius: 20%;
+	padding: 10px;
+	border: 2px solid black;
+	text-align: center;
+	text-decoration: none;
+	color: black;
+	margin:1em;
+}
+
+#fuera{
+
+	font-size: 100%;
+	font-weight: bold;
+	background-color: rgba(252, 95, 5, 1);
+	cursor: pointer;
+	border-radius: 20%;
+	padding: 10px;
+	border: 2px solid black;
+	text-align: center;
+	text-decoration: none;
+	color: black;
+	margin-left:28em;
+
+
+
+
+
+
+}
+
+#misalbumes:hover, #albumnuevo:hover, #creaalbum:hover, #fuera:hover, #accedo:hover, #salgo:hover, #nuevafoto:hover, #atras:hover, #returning:hover {
+	color: black;
+	font-weight: bold;
+	background-color: white;
+}
+
+#misalbumes:hover, #albumnuevo:active, #creaalbum:active,  #fuera:active,  #accedo:active,  #salgo:active, #nuevafoto:active, #atras:active, #returning:active {
+	background-color: yellow;
+  box-shadow: 0 10px #black;
+}
+
+input[type=submit]:hover{
+
+	color: black;
+	font-weight: bold;
+	background-color: white;
+
+}
+input:active {
+  background-color: yellow;
+  box-shadow: 0 10px #black;
+
+}
+
+input[type=radio]{
+
+	background:rgba(252, 95, 5, 1);
+    border:1px solid green;
+    padding:2px 10px;
+}
+
+
+.titulos{
+
+	text-align: center;
+	/*display: block;*/
+	margin-top: -4em;
+	color: #262626;
+	font: DejaVu Sans;
+	margin: 0 auto;
+	clear: right;
+
+
+
+
+
+}
+
+
+footer {
+	color: black;
+	background-color: rgba(252, 95, 5, 0.7);
+
+	font-family: Georgia, serif;
+
+    width: 100%;
+    bottom: 0;
+    position: absolute;
+    height: 30px;
+    margin-top: 0;
+
+
+}
+
+
+header.titulo{
+
+	text-align: center;
+	display: block;
+	margin: 0 auto;
+}
+
+/*RELATIVO A LA PAGINA DE BÚSQUEDA Y DEMAS FORMULARIOS*/
+
+#solicitudalbum{
+
+	border: 2px solid #939393;
+	color: black;
+	margin-left: 5%;
+	float: left;
+	clear: both;
+	width: 60%;
+}
+
+
+legend{
+
+	font-weight: bold;
+	color: black;
+
+}
+
+
+/*RELATIVAS A LA FOTO DE DETALLE*/
+
+
+.detalle{
+
+
+	text-align: center;
+
+
+}
+
+
+
+.detalle p{
+
+		font-weight: bold;
+		text-align: center;
+}
+
+
+.infofoto{
+	text-align: center;
+	color: black;
+}
+
+.infofoto a{
+	color: black;
+}
+
+
+input[type=date]{
+
+	width: 168px;
+
+
+}
+
+#fotousuario {
+
+	  width: 200px; height: 200px;
+}
+
+
+#direccion{
+
+	font-size: 18px;
+
+
+}
+
+#busqueda{
+	margin: 0 auto;
+	display: table;
+
+}
+#loginheader{
+
+	display: none;
+}
+
+#mensajesesion{
+
+	margin: 1em;
+
+
+}
+
+#campo{
+
+	text-align:center;
+	width: 25%;
+	font-weight: bold;
+
+
+}
+
+
+
+
+
+
+#error{
+
+	font-weight: bold;
+	color: red;
+	text-align: center;
+	font-size: 1.5em;
+}
+
+@media (min-width: 481px) and (max-width: 980px){
+
+	#desplegable{
+
+	display:none;
+}
+
+
+
+	#loginheader{
+
+		display: block;
+	}
+
+	#login{
+		display: none;
+	}
+
+	#loginf{
+
+		background-color: #DBD6D0;
+
+	}
+	#iniciarsesion{
+
+		color: rgba(252, 95, 5, 1);
+	}
+
+
+	header{
+		height: 230px;
+	}
+
+#logo{
+
+	width: 120px;
+	height: 120px;
+	padding: 10px;
+   	position: relative;
+    top: 0; bottom:0; left: 0; right:0;
+
+	float: left;
+}
+
+#contenedorb{
+
+	display: none;
+}
+
+.foticos{
+	font-size: 60%;
+}
+
+li img {
+
+width: 130px; height: 100px;
+
+}
+
+}
+
+
+@media (max-width: 481px) {
+
+
+	#login{
+		display: none;
+	}
+
+	#loginheader{
+		display:none;
+	}
+
+.navegacion{
+
+	height: 30% ;
+
+}
+
+#registrate{
+
+	display: none;
+}
+
+#logo{
+
+	width: 90px;
+	height: 90px;
+	padding: 10px;
+   	position: relative;
+    top: 0; bottom:0; left: 0; right:0;
+
+	float: left;
+}
+
+#contenedorb{
+
+	display: none;
+}
+
+header {
+    background-color: #262626;
+    color: black;
+    /*display: block;*/
+    position: relative;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 110px; /*cambiar a auto otra vez y alinear la barra de*/
+    padding: 0;
+    margin-bottom: 0;
+	margin: 0 auto;
+}
+
+#ini, #cerri{
+
+	display: block;
+	margin-top:5%;
+	margin-left: 50%;
+	position: absolute;
+}
+
+
+li img {
+ border: 5px solid #fff;
+ margin: auto;
+margin-bottom: 0px;
+width: 80px; height: 60px;
+padding: 0;
+clear: both;
+float: left;
+}
+
+.foticos{
+	font-size: 60%;
+}
+
+#cerri{
+	display: block;
+}
+}
