@@ -100,12 +100,12 @@ require_once("inc/conexion.inc.php");
 
 		</section>
 
-		<section class="formulario">
+		<section class="formulario"> <!-- LAS FOTOS MAS RECIENTES -->
 			<h2 class="titulos">¡Entra y comparte tus fotos!</h2>
 
 			<ul>
 			    <?php
-					
+
 	            $sentencia= 'SELECT * FROM fotos,paises WHERE fotos.pais=paises.IdPais GROUP BY Fecha DESC limit 5';
 	            $resultado = mysqli_query($link, $sentencia);
 				while($fila=mysqli_fetch_assoc($resultado)){
@@ -128,9 +128,44 @@ require_once("inc/conexion.inc.php");
 							</p></li>";
 				}
 				mysqli_free_result($resultado);
-
 			    ?>
+		<section class="formulario"> <!-- LO DE LAS FOTOS SELECCIONADAS -->
 		 	</ul>
+			<?php
+
+			if(($fichero = @file("seleccionadas.txt")) == false)
+			 {
+			   echo "No se ha podido abrir el fichero";
+			 }
+			 else
+			 {
+			   foreach($fichero as $numLinea => $linea)
+			   {
+
+			    echo htmlspecialchars($linea);
+			   }
+			 }
+
+			/*echo "<li>
+						<a href=";
+							echo "detalle.php?id=".$fila['IdFoto'];
+	 						echo "";
+			echo "		><img alt=".$fila['Titulo']." src='".$fila['Fichero']."'/></a>
+					<p>
+						<b>Título: ".$fila['Titulo']."</b>
+					</p>
+					<p>
+						<b>País: ".$fila['NomPais']."</b>
+					</p>
+					<p>
+						<b>Fecha: ".$fila['Fecha']."</b>
+					</p></li>";*/
+
+		?>
+			<ul>
+			</section>
+
+			</ul>
 
 		</section>
 
