@@ -32,8 +32,21 @@ require_once("inc/conexion.inc.php");
 	?>
 
 
-
 	<?php
+	if ($_FILES["foto"]["error"] != 0)
+		{
+		 echo "Error de archivo<br />";
+		}
+
+		$dir_subida = 'C:\xampp\htdocs\PARALUJAN\perfil'; //Movemos la imagen subida a la carpeta perfil/
+		$fichero_subido = $dir_subida . basename($_FILES['foto']['name']);
+
+		if (move_uploaded_file($_FILES['foto']['tmp_name'], $fichero_subido)) {
+				echo "<h2>¡Archivo subido con éxito!</h2>";
+		} else {
+			echo "<section type='principal'><p>Ooops, algo ha ido mal durante la subida. Prueba otra vez.</p><br>
+				<form action='insertararchivo.php'><button type='submit'>Inténtalo de nuevo</button></section>";
+		}
 
 
 		$nombre=$_POST['nombre'];
@@ -44,7 +57,6 @@ require_once("inc/conexion.inc.php");
 		$fecha=$_POST['fecha'];
 		$ciudad=$_POST['ciudad'];
 		$pais=$_POST['pais'];
-		$foto="miimagen.jpg";
 		$hora = date ("Y-m-d H:i:s"); // para la fecha de registro
 		$fecha_actual= date( "Y");
 
@@ -85,23 +97,13 @@ require_once("inc/conexion.inc.php");
 
 		}
 
-
-
-
-
 	// Filtrando la contraseña
-
-
 		if(preg_match("/(?!^[0-9]*$)(?!^[a-z]*$)(?!^[A-Z]*$)^([\w]{6,15})$/",$contra)==false){
 			$validado=false;
 			$msg=$msg . "Formato de contraseña incorrecto <br>";
 		}
 
-
-
 	//Comprobando que al repetir contraseña, coinciden
-
-
 		if($contra2!=$contra){
 			$validado=false;
 			$msg=$msg . "Las contraseñas no coinciden <br>";
@@ -109,8 +111,6 @@ require_once("inc/conexion.inc.php");
 
 
 	//Filtrando el email
-
-
 		if(filter_var($email, FILTER_VALIDATE_EMAIL)==false){
 			$validado=false;
 			$msg=$msg . "Formato de email incorrecto <br>";
@@ -118,7 +118,6 @@ require_once("inc/conexion.inc.php");
 
 
 	//Comprobando que el email no esté siendo utilizado ya
-
 		$consulta2="SELECT count(IdUsuario) FROM usuarios WHERE email='".$email."'";
 		$resultado2 = mysqli_query($link, $consulta2);
 		$fila=mysqli_fetch_assoc($resultado2);
@@ -169,14 +168,16 @@ require_once("inc/conexion.inc.php");
 
 			$msg=$msg . "Revisa tu año de nacimiento<br>";
 		}
+		?>
+    <?php
 
-	//aquí ya hacemos el insert en la base de datos
 
 		if($validado){
 			//aqui hago la sentencia insert
 			$sentencia="INSERT INTO usuarios(NomUsuario, Clave, Email, Sexo, FNacimiento, Ciudad, Pais, FRegistro, Foto)
-						VALUES ('".$nombre."','" .$contra. "','" .$email. "','" .$sexo. "','" .$fechaConvertida. "','" .$ciudad. "','" .$pais. "','" .$hora. "','" .$foto."')";
+						VALUES ('".$nombre."','" .$contra. "','" .$email. "','" .$sexo. "','" .$fechaConvertida. "','" .$ciudad. "','" .$pais. "','" .$hora. "','" .$fichero_subido."')";
 			if($resultado = $link->query($sentencia)) {
+
 					?>
 		<div class="detalle">
 
@@ -198,11 +199,6 @@ require_once("inc/conexion.inc.php");
 
 
 			if($_POST['pais']!=""){ echo "<b>Pais: </b>" . $fila['NomPais']. "<br>";}
-
-
-
-
-
 
 		?>
 
@@ -226,17 +222,6 @@ require_once("inc/conexion.inc.php");
 		}
 
 ?>
-
-
-
-
-
-
-
-
-
-
-
 	<?php
 	// llamamos al pie de página
 		require_once("inc/footer.inc.php");

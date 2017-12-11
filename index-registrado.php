@@ -59,7 +59,7 @@ require_once("inc/conexion.inc.php");
 
 	 	<ul>
 			<?php
-			
+
 	            $sentencia= 'SELECT * FROM fotos,paises WHERE fotos.pais=paises.IdPais GROUP BY FRegistro ASC limit 5';
 	            $resultado = mysqli_query($link, $sentencia);
 				while($fila=mysqli_fetch_assoc($resultado)){
@@ -85,6 +85,17 @@ require_once("inc/conexion.inc.php");
 
 			    ?>
 		 </ul>
+		</section>
+
+    <section class="formulario">
+			<h2 class="titulos">Fotos seleccionadas por críticos fotógrafos</h2>
+			<br>
+			<br>
+			<ul>
+				<?php
+					include("fotoseleccionada.php");
+				?>
+			</ul>
 		</section>
 
 <?php

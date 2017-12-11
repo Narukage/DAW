@@ -26,7 +26,7 @@ require_once("inc/conexion.inc.php");
 
 		<h2 class="titulos">Registro</h2>
 
-		<form id="registro" action="nuevoregistro.php" method="POST">
+		<form enctype="multipart/form-data" id="registro" action="nuevoregistro.php" method="POST">
 			<fieldset title="Formulario de registro">
 				<legend id="regis">Datos de usuario</legend>
 				<p>
@@ -75,18 +75,13 @@ require_once("inc/conexion.inc.php");
 				</select>
 				</p>
 				<p>
-					<label for="foto">Foto de perfil:</label> <input type="file" name="foto" accept="image/*" id="foto" >
+					<label for="foto">Foto de perfil:</label> <input type="file" name="foto" id="foto" accept=""  required>
 				</p>
-
-
-
-
-
 				<p>
 					<input title="Crear usuario" type="submit" value="Registrarme" class="centrado" >
 				</p>
 			</fieldset>
-		</form>
+				</form>
 
 	<?php
 

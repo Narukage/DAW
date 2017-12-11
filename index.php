@@ -37,20 +37,7 @@ require_once("inc/conexion.inc.php");
 			require_once("inc/header.inc.php");
 		}
 
-			/*
-
-			//hay que hacer está página
-
-			<button title="Formulario iniciar sesión" id="ini" onclick="window.location.href='iniciarsesion.php">Iniciar sesión</button>
-
-				<?php
-
-					require_once("login.inc");      //sólo llamará aquí cuando esté la pantalla en modo tableta
-			*/
-
 			?>
-
-
 
 		<section class="navegando">
 
@@ -129,47 +116,20 @@ require_once("inc/conexion.inc.php");
 				}
 				mysqli_free_result($resultado);
 			    ?>
-		<section class="formulario"> <!-- LO DE LAS FOTOS SELECCIONADAS -->
-		 	</ul>
-			<?php
 
-			if(($fichero = @file("seleccionadas.txt")) == false)
-			 {
-			   echo "No se ha podido abrir el fichero";
-			 }
-			 else
-			 {
-			   foreach($fichero as $numLinea => $linea)
-			   {
-
-			    echo htmlspecialchars($linea);
-			   }
-			 }
-
-			/*echo "<li>
-						<a href=";
-							echo "detalle.php?id=".$fila['IdFoto'];
-	 						echo "";
-			echo "		><img alt=".$fila['Titulo']." src='".$fila['Fichero']."'/></a>
-					<p>
-						<b>Título: ".$fila['Titulo']."</b>
-					</p>
-					<p>
-						<b>País: ".$fila['NomPais']."</b>
-					</p>
-					<p>
-						<b>Fecha: ".$fila['Fecha']."</b>
-					</p></li>";*/
-
-		?>
+		<section class="formulario">
+			<h2 class="titulos">Fotos seleccionadas por críticos fotógrafos</h2>
+			<br>
+			<br>
 			<ul>
-			</section>
-
+				<?php
+					include("fotoseleccionada.php");
+				?>
 			</ul>
-
 		</section>
 
 		<?php
+
 			require_once("inc/footer.inc.php");
 
 		?>
