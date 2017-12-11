@@ -55,13 +55,52 @@ require_once("inc/conexion.inc.php");
 
 		$fila=mysqli_fetch_assoc($resultado);
 
+	//Comprobamos que la imagen a subir es correcta
+	$error=false;
 
-	//aquí ya hacemos el insert en la base de datos
+	if ($_FILES["imagen"]["error"] != 0)
+		{
+		 echo "Error de archivo".$_FILES["imagen"]["error"]."<br/>";
+		}
 
+		if($_FILES["imagen"]["type"] == ("image/jpeg") //Formatos de imagen validos
+			|| $_FILES["imagen"]["type"] ==("image/gif")
+			|| $_FILES["imagen"]["type"] ==("image/jpg")
+			|| $_FILES["imagen"]["type"] ==("image/png")
+			|| $_FILES["imagen"]["type"] == ("image/bmp")
+			|| $_FILES["imagen"]["type"] ==("image/vnd.microsoft.icon")
+			|| $_FILES["imagen"]["type"] ==("image/tiff")
+			|| $_FILES["imagen"]["type"] ==("image/svg+xml")
+			){
+		}else{
+			$error=true;
+			echo "<p id='error'>El formato de la imagen no es correcto. Solo se soportan formatos png, jpg-jpeg-jpe, bmp, gif, tiff o svg.</p>";
+		}
+
+		if(ceil($_FILES["imagen"]["size"]/(1024*1024))>50){ //Tamanio de imagen valido
+			$error=true;
+			echo "<p id='error'>Archivo demasiado grande, suba uno más pequeño.</p>";
+		}
+
+		$num = rand(0, 1000);
+
+		if(!$error){
+			//SUBIDA IMAGEN
+			$dir_subida = 'C:\xampp\htdocs\PARALUJAN\dec\\'; //Movemos la imagen subida a la carpeta dec\
+			//Aniado tanto el nombre del usuario como un numero aleatorio para que no se chafen los archivos
+			$fichero_subido = $dir_subida . $titulo . $fecha . $num . basename($_FILES['imagen']['name']);
+
+			if (move_uploaded_file($_FILES['imagen']['tmp_name'], $fichero_subido)) {
+					echo "<h2 id='titulos'>¡Imagen subida correctamente!</h2>";
+			} else {
+				echo "<p id='error'>Error en la subida de imagen.</p><br>";
+			}
+
+			$fichero_subido = addslashes('/PARALUJAN/dec/' . $titulo . $fecha . $num . basename($_FILES['imagen']['name']));
 
 			//aqui hago la sentencia insert
 			$sentencia="INSERT INTO fotos(Titulo, Descripcion, Fecha, Pais, Album, Fichero, Fregistro)
-						VALUES ('".$titulo."','" .$descripcion. "','" .$fecha. "','" .$pais. "','" .$fila['idAlbum']. "','" .$foto. "','" .$hora. "')";
+						VALUES ('".$titulo."','" .$descripcion. "','" .$fecha. "','" .$pais. "','" .$fila['idAlbum']. "','" .$fichero_subido. "','" .$hora. "')";
 			if($resultado = $link->query($sentencia)) {
 					?>
 		<div class="detalle">
@@ -83,7 +122,7 @@ require_once("inc/conexion.inc.php");
 			if($album!=""){ echo "<b>Álbum: </b> " . $album. "<br>";}
 			if($fecha!=""){ echo "<b>Fecha: </b> " . $fecha. "<br>";}
 
-
+		}
 
 		?>
 

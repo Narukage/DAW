@@ -33,20 +33,8 @@ require_once("inc/conexion.inc.php");
 
 
 	<?php
-	if ($_FILES["foto"]["error"] != 0)
-		{
-		 echo "Error de archivo<br/>";
-		}
 
-		$dir_subida = 'C:\xampp\htdocs\PARALUJAN\perfil'; //Movemos la imagen subida a la carpeta perfil/
-		$fichero_subido = $dir_subida . basename($_FILES['foto']['name']);
-
-		if (move_uploaded_file($_FILES['foto']['tmp_name'], $fichero_subido)) {
-				echo "<p>¡Archivo subido con éxito!</p>";
-		} else {
-			echo "<section type='principal'><p>Error en la subida de la foto de perfil.</p><br>";
-		}
-
+	$error = false;
 
 		$nombre=$_POST['nombre'];
 		$contra=$_POST['contra'];
@@ -63,7 +51,7 @@ require_once("inc/conexion.inc.php");
 		$validado=true;
 		$msg="";
 
-						//lo tiene que introducir por cojones
+		//lo tiene que introducir por cojones
 		if($sexo== "Hombre"){
 			$sexo=1;
 		}else{
@@ -169,9 +157,51 @@ require_once("inc/conexion.inc.php");
 		}
 		?>
     <?php
+		//VALIDAR FOTO DE PERFIL
+
+		$error=false;
+
+		if ($_FILES["foto"]["error"] != 0)
+			{
+			 echo "Error de archivo".$_FILES["foto"]["error"]."<br/>";
+			}
+
+			if($_FILES["foto"]["type"] == ("image/jpeg") //Formatos de imagen validos
+				|| $_FILES["foto"]["type"] ==("image/gif")
+				|| $_FILES["imagen"]["type"] ==("image/gif")
+				|| $_FILES["foto"]["type"] ==("image/png")
+				|| $_FILES["foto"]["type"] == ("image/bmp")
+				|| $_FILES["foto"]["type"] ==("image/vnd.microsoft.icon")
+				|| $_FILES["foto"]["type"] ==("image/tiff")
+				|| $_FILES["foto"]["type"] ==("image/svg+xml")
+				){
+			}else{
+				$error=true;
+				echo "<p id='error'>El formato de la imagen no es correcto. Solo se soportan formatos png, jpg-jpeg-jpe, bmp, gif, tiff o svg.</p>";
+			}
+
+			if(ceil($_FILES["foto"]["size"]/(1024*1024))>50){ //Tamanio de imagen valido
+				$error=true;
+				echo "<p id='error'>Archivo demasiado grande, suba uno más pequeño.</p>";
+			}
+
+			$num = rand(0, 1000);
 
 
-		if($validado){
+		//INSERCION EN BASE DE DATOS
+		if($validado && !$error){
+			//SUBIDA FOTO DE PERFIL
+			$dir_subida = 'C:\xampp\htdocs\PARALUJAN\perfil\\'; //Movemos la imagen subida a la carpeta perfil\
+			//Aniado tanto el nombre del usuario como un numero aleatorio para que no se chafen los archivos
+			$fichero_subido = $dir_subida . $_POST["nombre"] . $num . basename($_FILES['foto']['name']);
+
+			if (move_uploaded_file($_FILES['foto']['tmp_name'], $fichero_subido)) {
+					echo "<h2 id='titulos'>¡Registro completado!</h2>";
+			} else {
+				echo "<p id='error'>Error en la subida de la foto de perfil.</p><br>";
+			}
+
+			$fichero_subido = addslashes('\PARALUJAN\perfil\\' . $_POST["nombre"] . $num . basename($_FILES['foto']['name']));
 			//aqui hago la sentencia insert
 			$sentencia="INSERT INTO usuarios(NomUsuario, Clave, Email, Sexo, FNacimiento, Ciudad, Pais, FRegistro, Foto)
 						VALUES ('".$nombre."','" .$contra. "','" .$email. "','" .$sexo. "','" .$fechaConvertida. "','" .$ciudad. "','" .$pais. "','" .$hora. "','" .$fichero_subido."')";

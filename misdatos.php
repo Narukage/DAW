@@ -81,11 +81,10 @@ if(!isset($_SESSION["usuario"])){
                         <img src="'.$fila['Foto'].'">
 
 
-            <label for="editar"><b>Editar foto de perfil:</b></label>
-						<input name="imagen" type="file" id="editar" />
-						<input name="subir" type="submit" value="subir"/>
+			            <label for="editar"><b>Editar foto de perfil:</b></label>
+									<input name="imagen" type="file" id="editar" />
+									<input name="subir" type="submit" value="subir"/>
 
-						<p>
 
                         <b>Nombre:</b> '.$fila['NomUsuario'].'
                         </p>

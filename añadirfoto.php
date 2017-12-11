@@ -90,7 +90,7 @@ require_once("inc/conexion.inc.php");
 									 $fila = mysqli_fetch_assoc($resultado);
 
 									 $sentencia = "SELECT * FROM albumes WHERE albumes.Usuario='" .$fila['IdUsuario']. "'";
-									 
+
 
 
 
@@ -118,7 +118,7 @@ require_once("inc/conexion.inc.php");
 							?>
 							</p>
 		<p><label><b>Foto:</b></label>
-    	<input type="file" name="imagen">
+    	<input type="file" name="imagen" accept="" required>
 			</p>
 			<input title="Añadir foto" value="Añadir foto" type="submit" class="centrado" >
 
