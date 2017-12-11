@@ -35,17 +35,16 @@ require_once("inc/conexion.inc.php");
 	<?php
 	if ($_FILES["foto"]["error"] != 0)
 		{
-		 echo "Error de archivo<br />";
+		 echo "Error de archivo<br/>";
 		}
 
 		$dir_subida = 'C:\xampp\htdocs\PARALUJAN\perfil'; //Movemos la imagen subida a la carpeta perfil/
 		$fichero_subido = $dir_subida . basename($_FILES['foto']['name']);
 
 		if (move_uploaded_file($_FILES['foto']['tmp_name'], $fichero_subido)) {
-				echo "<h2>¡Archivo subido con éxito!</h2>";
+				echo "<p>¡Archivo subido con éxito!</p>";
 		} else {
-			echo "<section type='principal'><p>Ooops, algo ha ido mal durante la subida. Prueba otra vez.</p><br>
-				<form action='insertararchivo.php'><button type='submit'>Inténtalo de nuevo</button></section>";
+			echo "<section type='principal'><p>Error en la subida de la foto de perfil.</p><br>";
 		}
 
 

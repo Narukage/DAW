@@ -7,8 +7,6 @@
 		$title= "PICSY-Solicitud álbum";
 		require_once("inc/head.inc.php");
 		?>
-
-
 		<body>
 
 	<?php
@@ -29,6 +27,9 @@
 							<li ><a id="atras" title="Atrás" href="menuusuarioregistrado.php">Atrás</a></li>
 						</ul>
 						<br>
+						
+
+						
 						<h2 class="titulos">Formulario de solicitud</h2>
 
 						<p id="informacion">¡Aquí puedes solicitar tu album personalizado. Elige número de páginas, color de impresión, resolución y mucho más! ¿A qué esperas?</p>
@@ -133,7 +134,7 @@
 							<input type="number" min="150" max="900" value="150" name="resolution_control" step="150" id="res" size="3" /> PDI</p>
 							<p><label for="album"><b>(*)</b>Álbum:</label>
 
-														<?php
+					<?php
 
 					 if($link->connect_errno) {
 					   echo '<p>Error al conectar con la base de datos: ' . $mysqli->connect_error;
@@ -158,22 +159,32 @@
 					   echo '</p>';
 					   exit;
 					 }
-
-					  echo '<select name= "album" id="album" required>';
-
-					  echo '<option value=""></option>';
+					 
+					 $cont=0;
+					 $vacio=true;
+					 
 					 while($fila = mysqli_fetch_assoc($resultado)){
-
-
+						 if(!empty($fila)){
+						$vacio=false;
+						 if($cont==0){
+					  echo '<select name= "album" id="album" required>';
+					  echo '<option value=""></option>';
+							$cont=$cont+1;
+						 }
+					 
+						
+						
 						echo '<option value='.$fila['Titulo'].'>'. $fila['Titulo'] . '</option>';
-
-
-
-
-
+						}
 					 }
 					 echo '</select>';
-					?>
+					 
+					 if($vacio){
+						 echo 'SIN ALBUMES'; //Además tb desaparecerá el botón solicitar album
+					 }
+						?>
+						
+					
 							</p>
 							<p><label for="desde">Fecha recepción entre:</label> <input type="date" name="fecha" id="desde" required  />
 							<p>
@@ -188,10 +199,15 @@
 							<label for="byn">Blanco y negro</label><input type="radio" name="tipo" value="Blanco y negro" id="byn" checked />
 							</p>
 
-							<input type="submit" value= "Enviar"/>
+					<?php
+						
+							if(!$vacio){
+							echo'<input type="submit" value= "Solicitar"/>';
 
-
+							}
+					?>
 							</fieldset>
+							
 
 						</form>
 
@@ -200,8 +216,8 @@
 				<br>
 			</main>
 
-	<?php
-
+	
+		<?php
 		require_once("inc/footer.inc.php");
 		?>
 

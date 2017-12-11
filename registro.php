@@ -75,7 +75,7 @@ require_once("inc/conexion.inc.php");
 				</select>
 				</p>
 				<p>
-					<label for="foto">Foto de perfil:</label> <input type="file" name="foto" id="foto" accept=""  required>
+					<label for="foto">Foto de perfil:</label> <input type="file" name="foto" id="foto" accept="" required>
 				</p>
 				<p>
 					<input title="Crear usuario" type="submit" value="Registrarme" class="centrado" >

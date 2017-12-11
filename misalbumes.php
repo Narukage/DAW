@@ -48,31 +48,36 @@ require_once("inc/conexion.inc.php");
 					   echo '</p>';
 					   exit;
 					 }
-					 $puesto = false;
-						$cont = 0;
-
-					 while($fila = mysqli_fetch_assoc($resultado)){
-						 $puesto=true;
+			
+					$cont = 0;
+					
+					
+					
+					$puesto=false;
+					
+					 while($fila=mysqli_fetch_assoc($resultado)){
+						 if(!empty($fila)){
+							$puesto=true;
 						 	if($cont==0){
+								
 								 echo '<select name= "album">';
+								 echo '<option value=""></option>';
 							}
 
-						 $cont=$cont+1;
-
-						 echo '<option value=""></option>';
-						echo '<option value='.$fila['Titulo'].'>'. $fila['Titulo'] . '</option>';
-
-					 }
-					 echo '</select>';
-					 if(!$puesto){
+							$cont=$cont+1;
+							echo '<option value='.$fila['Titulo'].'>'. $fila['Titulo'] . '</option>';
+						 }
+					}
+					if($puesto){
+						echo '</select>';
+						echo '<p><input type="submit" title="ver album" id="albumnuevo" value="Ver Album" class="centrado"></input></p>';
+					}
+					else{
 						 echo '<p id="informacion" >Todavía no tienes álbumes</p>';
 					 }
 					?>
 				</p>
 
-				<p>
-					<input type="submit" title="ver album" id="albumnuevo" value="Ver Album" class="centrado"></input>
-				</p>
 			</fieldset>
 		</form>
 
