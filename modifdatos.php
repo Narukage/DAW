@@ -21,8 +21,13 @@ require_once("inc/conexion.inc.php");
             require_once("inc/header.inc.php");
         }
 	?>
-	<hr>
+	
 	<main>
+			<ul class=navegacion>
+			<li ><a id="atras" title="Atrás" href="menuusuarioregistrado.php">Atrás</a></li>
+		</ul>
+		<br>
+
         <?php
         if(isset($_SESSION["usuario"])){
             $sentencia ='SELECT * FROM usuarios u WHERE u.NomUsuario="'.$_SESSION['usuario'].'"';
@@ -59,7 +64,7 @@ require_once("inc/conexion.inc.php");
                         <p>
                         <label>Repetir contraseña:</label><input type="password" name="pass_control2" >
                         </p>
-						<label for="editar"><b>Editar foto de perfil:</b></label>
+						<label for="editar">Editar foto de perfil:</label>
 							<input name="imagen" type="file" id="editar" />
 							
                         <p>
