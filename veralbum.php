@@ -41,19 +41,27 @@ require_once("inc/conexion.inc.php");
 					$filaIdAl= mysqli_fetch_assoc($resultado);
 
 					$puesto=false;
-
+					echo '<fieldset>';
 					if(isset($_POST['album'])){
+					 echo "<h2><legend id='informacion'> Estás viendo el álbum: ".$_POST['album']."</legend> </h2>";
 					 $sentenciaIdAlbum ="SELECT * FROM fotos, paises WHERE fotos.Album= '".$filaIdAl['idAlbum']."' AND fotos.Pais = paises.IdPais";
 					 $resultado = mysqli_query($link, $sentenciaIdAlbum);
+					 
 						while($fila=mysqli_fetch_assoc($resultado)){
 							$puesto=true;
-							echo "<ul>
-								<a href=";
+							
+							
+							
+							echo "	<a href=";
 							echo "detallefoto.php?id=".$fila['IdFoto'];
 
-							echo "><img alt=".$fila['Titulo']." src='".$fila['Fichero']."'/></a>
+							echo "><img alt=".$fila['Titulo']." src='".$fila['Fichero']."'/></a>";
+							echo "<ul id='informacion'>
 								<p>
 									<b>Título: ".$fila['Titulo']."</b>
+								</p>
+								<p>
+									<b>Descripción: ".$fila['Descripcion']."</b>
 								</p>
 								<p>
 									<b>País: ".$fila['NomPais']."</b>
@@ -68,7 +76,7 @@ require_once("inc/conexion.inc.php");
 					echo "<a href='misalbumes.php' id='misalbumes'>Mis álbumes</a></li>";
 					}
 
-
+					echo '</fieldset>';
 					?>
 				</p>
 
