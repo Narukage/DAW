@@ -38,75 +38,103 @@ if(!isset($_SESSION["usuario"])){
 
     <?php
     //Modificar los datos de la base de datos por los introducidos en el formulario utilizando los $_POST
-    $cambioemail=false;
-    $cambiociudad=false;
-    $cambiocontraseña=false;
-    $erroremail=false;
-    $errorpass=false;
-    $errorciudad=false;
+
+    $vacio_email=false;
+	$error_email=false;
+	
+	$vacio_ciudad=false;
+	$error_ciudad=false;
+	
+    $vacio_pass=false;
+	$no_iguales=false;
+	$error_pass=false;
+	
+	$email=null;
+	$ciudad=null;
+	$pass=null;
+	
+	$hay_modificaciones=false;
+	
 
 
     $sentencia='SELECT * FROM Usuarios WHERE usuarios.NomUsuario="'.$_SESSION['usuario'].'"';
     $resultado = mysqli_query($link,$sentencia);
     $fila=mysqli_fetch_assoc($resultado);
-    if(isset($_POST['email_control'])){
-      $email = $_POST['email_control'];
-      if(!filter_var($email, FILTER_SANITIZE_EMAIL)){
-        $erroremail=true;
+    if(isset($_POST['email_control']) && empty($_POST['email_control']==false)){ //Si ha metido el email, y no está vacío.
+			echo "entrooooooooo";
+      if(filter_var($_POST['email_control'], FILTER_VALIDATE_EMAIL)){ //Si el email coincide con el formato de e-mail
+	  echo "entrooooooooo";
+		  $email = $_POST['email_control'];
+		  $hay_modificaciones=true;
       }
-      else{
-        if(strcmp($email,$fila['Email'])!=0){
-          $cambioemail=true;
-        }
-      }
+	  else{
+		  $error_email=true;
+	  }
     }
-    if(isset($_POST['ciudad_control'])){
-      $ciudad=$_POST['ciudad_control'];
-      if(!filter_var($ciudad, FILTER_SANITIZE_STRING)){
-        $errorciudad=true;
+	else{
+		
+		  $vacio_email=true;
+	}
+	
+	
+	
+    if(isset($_POST['ciudad_control']) && empty($_POST['ciudad_control']==false)){
+      if(!filter_var($ciudad, FILTER_SANITIZE_STRING)){ //ESTE FILTRO NO HACE NADA EH
+		  $ciudad=$_POST['ciudad_control'];  
+		   $hay_modificaciones=true;
       }
-      else{
-        if(strcmp($ciudad,$fila['Ciudad'])!=0){
-          $cambiociudad=true;
-        }
-      }
+	  else{
+		  $error_ciudad=true;
+	  }
     }
-    if((isset($_POST['pass_control']) && isset($_POST['pass_control2'])) && $_POST['pass_control']!=null && $_POST['pass_control2']!=null) {
-        if(strcmp($_POST['pass_control'], $_POST['pass_control2'])==0){
-            $pass=$_POST['pass_control'];
-            if(strcmp($pass, $fila['Clave'])!=0){
-                $cambiocontraseña=true;
-            }
-          }
-            else{
-              $errorpass=true;
-            }
-          }
-            else if((!isset($_POST['pass_control']) && isset($_POST['pass_control2'])) || (isset($_POST['pass_control']) && !isset($_POST['pass_control2']))){
-              $errorpass=true;
-            }
+	else{
+		echo "entro3";
+		 $vacio_ciudad=true; //Vacío 
+	}
+	
+	
 
-            if(!$erroremail && !$errorciudad && !$errorpass){
-            if(!$cambioemail && !$cambiociudad && !$cambiocontraseña){
-              //No se ha modificado ningun parametro
+    if((isset($_POST['pass_control']) && isset($_POST['pass_control2']) && empty($_POST['pass_control']==false) && empty($_POST['pass_control2']==false))) {
+        if(strcmp($_POST['pass_control'], $_POST['pass_control2'])==0){
+			if(preg_match("/(?!^[0-9]*$)(?!^[a-z]*$)(?!^[A-Z]*$)^([\w]{6,15})$/",$_POST['pass_control'])){
+            $pass=$_POST['pass_control']; //las contraseñas son iguales
+			$hay_modificaciones=true;
+			}
+			else{
+				$error_pass=true; //NO CUMPLE CON LOS FILTROS
+			}
+          }
+        else{
+			  $no_iguales=true; //las contraseñas no son iguales
             }
-            else{
+	}
+	else{
+		echo "entro4";
+		$vacio_pass=true; //Una de las dos contraseñas o las dos están vacías
+	}
+
+
+            if(!$error_email && !$error_ciudad && !$error_pass && !$no_iguales && $hay_modificaciones ){
+
+				
+
+			 echo "entrooooooooo";
               echo '<br>';
               echo '<h2 class="titulos">Modificaciones:</h2>';
               echo '<br>';
               echo '<form><fieldset>';
 
-              if($cambioemail){
+              if($email!=null){
                   echo '<p>Nuevo e-mail: '.$email.'</p>';
                   $sentencia2='UPDATE usuarios SET Email="'.$email.'" WHERE usuarios.NomUsuario="'.$_SESSION['usuario'].'"';
                   mysqli_query($link,$sentencia2);
               }
-              if($cambiociudad){
+              if($ciudad!=null){
                   echo '<p>Nueva ciudad: '.$ciudad.'</p>';
                   $sentencia2='UPDATE usuarios SET Ciudad="'.$ciudad.'" WHERE usuarios.NomUsuario="'.$_SESSION['usuario'].'"';
                   mysqli_query($link,$sentencia2);
               }
-              if($cambiocontraseña){
+              if($pass!=null){
                   echo '<p>Nueva contraseña: '.$pass.'</p>';
                   $sentencia2='UPDATE usuarios SET Clave="'.$pass.'" WHERE usuarios.NomUsuario="'.$_SESSION['usuario'].'"';
                   mysqli_query($link,$sentencia2);
@@ -114,24 +142,42 @@ if(!isset($_SESSION["usuario"])){
               echo '<p><a id="nuevafoto" href="menuusuarioregistrado.php">Volver</a></p>';
               echo '</fieldset></form>';
             }
-          }
+          
           else{
-            if($erroremail){
+ 
+			if($error_email){
               echo '<p id="informacion">
-                      Estructura de e-mail incorrecta
+                      Revisa la estructura del e-mail que has introducido, es incorrecta
                     </p>';
             }
-            if($errorciudad){
+            if($error_ciudad){
               echo '<p id="informacion">
-                      Formato de ciudad incorrecto
+                      Revisa el formato de ciudad que has introducido, es incorrecto
                     </p>';
             }
-            if($errorpass){
+            if($error_pass){
               echo '<p id="informacion">
-                      Las contraseñas deben coincidir
+                      La contraseña no cumple con los requisitos
                     </p>';
             }
-            echo '<a href="menuusuarioregistrado.php" id="nuevafoto">Volver</a>';
+			if($no_iguales){
+              echo '<p id="informacion">
+                          Las contraseñas no coinciden
+                    </p>';
+            }
+			if(!$hay_modificaciones && !$error_email && !$error_ciudad && !$error_pass && !$no_iguales){
+				
+				echo '<p id="informacion">
+                      No has realizado ninguna modificación
+                    </p>';
+				
+				
+			}
+			
+			
+
+			
+            echo '<a href="modifdatos.php" id="nuevafoto">Volver</a>';
           }
     ?>
 

@@ -48,17 +48,20 @@ require_once("inc/conexion.inc.php");
                         <fieldset>
                         <legend>Modificar datos</legend>
                         <p>
-                        <label>E-mail:</label><input type="text" name="email_control" value="'.$fila['Email'].'"pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,3}$" required />
+                        <label>E-mail:</label><input type="text" name="email_control" value=""pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,3}$"  />
                         </p>
                         <p>
-                        <label>Ciudad:</label><input type="text" name="ciudad_control" value="'.$fila['Ciudad'].'" required/>
+                        <label>Ciudad:</label><input type="text" name="ciudad_control" value="" />
                         </p>
                         <p>
-                        <label>Nueva contraseña:</label><input type="text" name="pass_control" >
+                        <label>Nueva contraseña:</label><input type="password" name="pass_control" >
                         </p>
                         <p>
-                        <label>Repetir contraseña:</label><input type="text" name="pass_control2" >
+                        <label>Repetir contraseña:</label><input type="password" name="pass_control2" >
                         </p>
+						<label for="editar"><b>Editar foto de perfil:</b></label>
+							<input name="imagen" type="file" id="editar" />
+							
                         <p>
                         <label></label><input type="submit" name="submit_control" value="Confirmar">
                         </p>
