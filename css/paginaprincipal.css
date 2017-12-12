@@ -202,7 +202,6 @@ form label {
 
 
 
-
 #informacion{
 
 	margin-left: 4%;
@@ -214,6 +213,10 @@ form label {
    border: 2px solid #4f4f4f;
    background-color: rgba(252, 95, 5, 0.7);
    text-align: center;
+}
+
+#seleccionada{
+	margin: 0 auto;
 }
 
 #logo{

@@ -10,6 +10,7 @@ if(($fichero = @file("seleccionadas.ini")) == false){
    $sentencia="SELECT * from fotos,paises where IdFoto='".$contenido[1]."' AND fotos.Pais=paises.IdPais";
    $resultado= mysqli_query($link, $sentencia);
 
+   echo "<fieldset id='informacion'>";
    while($fila=mysqli_fetch_assoc($resultado)){
      echo "<li>
            <a href=";
@@ -18,8 +19,11 @@ if(($fichero = @file("seleccionadas.ini")) == false){
            }else{
              echo "";
            }
-     echo "		><img alt=".$fila['Titulo']." src='".$fila['Fichero']."'/></a>
+     echo "		><img id= 'seleccionada' alt=".$fila['Titulo']." src='".$fila['Fichero']."'/></a>";
+	 echo "<li>
+		</br>
          <p>
+		 
            <b>Título: ".$fila['Titulo']."</b>
          </p>
          <p>
@@ -36,6 +40,7 @@ if(($fichero = @file("seleccionadas.ini")) == false){
          </p>
          </li>";
    }
+      echo '</fieldset>';
  }
 
 ?>
