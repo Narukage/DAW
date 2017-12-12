@@ -159,16 +159,26 @@ require_once("inc/conexion.inc.php");
     <?php
 		//VALIDAR FOTO DE PERFIL
 
+     $msgError = array(0 => "No hay error, el fichero se subió con éxito", 
+               1 => "Archivo demasiado grande, suba uno más pequeño.", 
+               2 => "El tamaño del fichero supera la directiva 
+                   MAX_FILE_SIZE especificada en el formulario HTML", 
+               3 => "El fichero fue parcialmente subido", 
+               4 => "No se ha subido un fichero", 
+               6 => "<p id='error'>No existe un directorio temporal</p>", 
+               7 => "Fallo al escribir el fichero al disco", 
+               8 => "La subida del fichero fue detenida por la extensión"); 
+
 		$error=false;
 
 		if ($_FILES["foto"]["error"] != 0)
 			{
-			 echo "Error de archivo".$_FILES["foto"]["error"]."<br/>";
-			}
+			 echo "<p id='error'>Error de archivo: ".$msgError[$_FILES["foto"]["error"]]."</p><br/>";
+			}else{
 
 			if($_FILES["foto"]["type"] == ("image/jpeg") //Formatos de imagen validos
 				|| $_FILES["foto"]["type"] ==("image/gif")
-				|| $_FILES["imagen"]["type"] ==("image/gif")
+				|| $_FILES["foto"]["type"] ==("image/jpg")
 				|| $_FILES["foto"]["type"] ==("image/png")
 				|| $_FILES["foto"]["type"] == ("image/bmp")
 				|| $_FILES["foto"]["type"] ==("image/vnd.microsoft.icon")
@@ -180,7 +190,7 @@ require_once("inc/conexion.inc.php");
 				echo "<p id='error'>El formato de la imagen no es correcto. Solo se soportan formatos png, jpg-jpeg-jpe, bmp, gif, tiff o svg.</p>";
 			}
 
-			if(ceil($_FILES["foto"]["size"]/(1024*1024))>50){ //Tamanio de imagen valido
+			if(ceil($_FILES["foto"]["size"]>2097152)){ //Tamanio de imagen valido
 				$error=true;
 				echo "<p id='error'>Archivo demasiado grande, suba uno más pequeño.</p>";
 			}
@@ -249,6 +259,7 @@ require_once("inc/conexion.inc.php");
 			echo "<div class='detalle'><div class='datos'>" . $msg . "<br>";
 			echo "<a id='returning' href='registro.php'>Volver al registro</a></div></div><br><br>";
 		}
+	}
 
 ?>
 	<?php
