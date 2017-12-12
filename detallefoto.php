@@ -62,13 +62,21 @@ if(!isset($_SESSION["usuario"])){
 					 }
 
  			$resultado = mysqli_query($link, $sentencia);
+				$cont=0;
+				echo '<fieldset>';
 				while($fila=mysqli_fetch_assoc($resultado)){
+					if($cont==0){
+				echo "<h2><legend id='informacion'> Título: " . $fila['Titulo'] . " </legend></h2>";
+						$cont=$cont+1;
+					}
 					echo "<h1><img  src='" . $fila['Fichero'] . "' alt='" . $fila['Descripcion'] . "'></h1>";
+					echo "<p><b>Descripción:</b> " . $fila['Descripcion'] . "</p>";
 			        echo "<p><b>País:</b> " . $fila['NomPais'] . "</p>";
-			        echo "<p><b>Autor:</b> <a href='perfil.php?nombre=" . $fila['NomUsuario'] . "'>" . $fila['NomUsuario'] . "</a></p>";
-			        echo "<p><b>Título:</b> " . $fila['Titulo'] . "</p>";
+			        echo "<p><b>Autor:</b> "  . $fila['NomUsuario'] . "</p>";
 			        echo "<p><b>Fecha de publicación:</b> " . $fila['FRegistro'] . "</p>";
 				}
+				
+				echo '</fieldset>';
 
 
 
