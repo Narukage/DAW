@@ -41,29 +41,28 @@ if(!isset($_SESSION["usuario"])){
 
     $vacio_email=false;
 	$error_email=false;
-	
+
 	$vacio_ciudad=false;
 	$error_ciudad=false;
-	
+
     $vacio_pass=false;
 	$no_iguales=false;
 	$error_pass=false;
-	
+
 	$email=null;
 	$ciudad=null;
 	$pass=null;
-	
+	$foto=null;
+
 	$hay_modificaciones=false;
-	
+
 
 
     $sentencia='SELECT * FROM Usuarios WHERE usuarios.NomUsuario="'.$_SESSION['usuario'].'"';
     $resultado = mysqli_query($link,$sentencia);
     $fila=mysqli_fetch_assoc($resultado);
     if(isset($_POST['email_control']) && empty($_POST['email_control']==false)){ //Si ha metido el email, y no está vacío.
-			echo "entrooooooooo";
       if(filter_var($_POST['email_control'], FILTER_VALIDATE_EMAIL)){ //Si el email coincide con el formato de e-mail
-	  echo "entrooooooooo";
 		  $email = $_POST['email_control'];
 		  $hay_modificaciones=true;
       }
@@ -72,15 +71,15 @@ if(!isset($_SESSION["usuario"])){
 	  }
     }
 	else{
-		
+
 		  $vacio_email=true;
 	}
-	
-	
-	
+
+
+
     if(isset($_POST['ciudad_control']) && empty($_POST['ciudad_control']==false)){
       if(!filter_var($ciudad, FILTER_SANITIZE_STRING)){ //ESTE FILTRO NO HACE NADA EH
-		  $ciudad=$_POST['ciudad_control'];  
+		  $ciudad=$_POST['ciudad_control'];
 		   $hay_modificaciones=true;
       }
 	  else{
@@ -88,11 +87,54 @@ if(!isset($_SESSION["usuario"])){
 	  }
     }
 	else{
-		echo "entro3";
-		 $vacio_ciudad=true; //Vacío 
+		 $vacio_ciudad=true; //Vacío
 	}
-	
-	
+
+	$error_foto=false;
+
+	if(isset($_FILES["foto"]["tmp_name"])){
+		$hay_modificaciones=true;
+		$foto=$_FILES["foto"]["tmp_name"];
+		$msgError = array(0 => "No hay error, el fichero se subió con éxito",
+							1 => "Archivo demasiado grande, suba uno más pequeño.",
+							2 => "El tamaño del fichero supera la directiva
+									MAX_FILE_SIZE especificada en el formulario HTML",
+							3 => "El fichero fue parcialmente subido",
+							4 => "No se ha subido un fichero",
+							6 => "<p id='error'>No existe un directorio temporal</p>",
+							7 => "Fallo al escribir el fichero al disco",
+							8 => "La subida del fichero fue detenida por la extensión");
+
+	 $error=false;
+
+	 if ($_FILES["foto"]["error"] != 0)
+		 {
+			echo "<p id='error'>Error de archivo: ".$msgError[$_FILES["foto"]["error"]]."</p><br/>";
+		 }else{
+
+		 if($_FILES["foto"]["type"] == ("image/jpeg") //Formatos de imagen validos
+			 || $_FILES["foto"]["type"] ==("image/gif")
+			 || $_FILES["foto"]["type"] ==("image/jpg")
+			 || $_FILES["foto"]["type"] ==("image/png")
+			 || $_FILES["foto"]["type"] == ("image/bmp")
+			 || $_FILES["foto"]["type"] ==("image/vnd.microsoft.icon")
+			 || $_FILES["foto"]["type"] ==("image/tiff")
+			 || $_FILES["foto"]["type"] ==("image/svg+xml")
+			 ){
+		 }else{
+			 $error_foto=true;
+			 echo "<p id='error'>El formato de la imagen no es correcto. Solo se soportan formatos png, jpg-jpeg-jpe, bmp, gif, tiff o svg.</p>";
+		 }
+
+		 if(ceil($_FILES["foto"]["size"]>2097152)){ //Tamanio de imagen valido
+			 $error_foto=true;
+			 echo "<p id='error'>Archivo demasiado grande, suba uno más pequeño.</p>";
+		 }
+
+		 $num = rand(0, 1000);
+	}
+
+
 
     if((isset($_POST['pass_control']) && isset($_POST['pass_control2']) && empty($_POST['pass_control']==false) && empty($_POST['pass_control2']==false))) {
         if(strcmp($_POST['pass_control'], $_POST['pass_control2'])==0){
@@ -109,16 +151,31 @@ if(!isset($_SESSION["usuario"])){
             }
 	}
 	else{
-		echo "entro4";
 		$vacio_pass=true; //Una de las dos contraseñas o las dos están vacías
 	}
 
 
-            if(!$error_email && !$error_ciudad && !$error_pass && !$no_iguales && $hay_modificaciones ){
+            if(!$error_email && !$error_ciudad && !$error_pass && !$no_iguales && !$error_foto && $hay_modificaciones ){
 
-				
+							if($foto!=null){
+								//SUBIDA FOTO DE PERFIL
+								$dir_subida = 'C:\xampp\htdocs\PARALUJAN\perfil\\'; //Movemos la imagen subida a la carpeta perfil\
+								//Aniado tanto el nombre del usuario como un numero aleatorio para que no se chafen los archivos
+								$fichero_subido = $dir_subida . $num . basename($_FILES['foto']['name']);
 
-			 echo "entrooooooooo";
+								if (move_uploaded_file($_FILES['foto']['tmp_name'], $fichero_subido)) {
+										echo "<h2 id='titulos'>¡Registro completado!</h2>";
+								} else {
+									echo "<p id='error'>Error en la subida de la foto de perfil.</p><br>";
+								}
+
+								$fichero_subido = addslashes('\PARALUJAN\perfil\\' . $num . basename($_FILES['foto']['name']));
+
+								$sentenciafoto='UPDATE usuarios SET Foto="'.$fichero_subido.'" WHERE usuarios.NomUsuario="'.$_SESSION['usuario'].'"';
+								mysqli_query($link,$sentenciafoto);
+							}
+
+
               echo '<br>';
               echo '<h2 class="titulos">Modificaciones:</h2>';
               echo '<br>';
@@ -142,9 +199,9 @@ if(!isset($_SESSION["usuario"])){
               echo '<p><a id="nuevafoto" href="menuusuarioregistrado.php">Volver</a></p>';
               echo '</fieldset></form>';
             }
-          
+
           else{
- 
+
 			if($error_email){
               echo '<p id="informacion">
                       Revisa la estructura del e-mail que has introducido, es incorrecta
@@ -165,18 +222,16 @@ if(!isset($_SESSION["usuario"])){
                           Las contraseñas no coinciden
                     </p>';
             }
-			if(!$hay_modificaciones && !$error_email && !$error_ciudad && !$error_pass && !$no_iguales){
-				
-				echo '<p id="informacion">
-                      No has realizado ninguna modificación
-                    </p>';
-				
-				
-			}
-			
-			
+			if(!$hay_modificaciones && !$error_email && !$error_ciudad && !$error_pass && !$no_iguales && !isset($_FILES["foto"]["tmp_name"])){
 
-			
+				echo '<p id="informacion">No has realizado ninguna modificación</p>';
+
+
+			}
+
+
+
+
             echo '<a href="modifdatos.php" id="nuevafoto">Volver</a>';
           }
     ?>
