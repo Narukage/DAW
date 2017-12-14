@@ -112,15 +112,15 @@ if(!isset($_SESSION["usuario"])){
 			echo "<p id='error'>Error de archivo: ".$msgError[$_FILES["foto"]["error"]]."</p><br/>";
 		 }else{
 
-		 if($_FILES["foto"]["type"] == ("image/jpeg") //Formatos de imagen validos
-			 || $_FILES["foto"]["type"] ==("image/gif")
-			 || $_FILES["foto"]["type"] ==("image/jpg")
-			 || $_FILES["foto"]["type"] ==("image/png")
-			 || $_FILES["foto"]["type"] == ("image/bmp")
-			 || $_FILES["foto"]["type"] ==("image/vnd.microsoft.icon")
-			 || $_FILES["foto"]["type"] ==("image/tiff")
-			 || $_FILES["foto"]["type"] ==("image/svg+xml")
-			 ){
+			 if($_FILES["foto"]["type"] == ("image/jpeg") //Formatos de imagen validos
+				 || $_FILES["foto"]["type"] ==("image/gif")
+				 || $_FILES["foto"]["type"] ==("image/jpg")
+				 || $_FILES["foto"]["type"] ==("image/png")
+				 || $_FILES["foto"]["type"] == ("image/bmp")
+				 || $_FILES["foto"]["type"] ==("image/vnd.microsoft.icon")
+				 || $_FILES["foto"]["type"] ==("image/tiff")
+				 || $_FILES["foto"]["type"] ==("image/svg+xml")
+				 ){
 		 }else{
 			 $error_foto=true;
 			 echo "<p id='error'>El formato de la imagen no es correcto. Solo se soportan formatos png, jpg-jpeg-jpe, bmp, gif, tiff o svg.</p>";
@@ -133,6 +133,7 @@ if(!isset($_SESSION["usuario"])){
 
 		 $num = rand(0, 1000);
 	}
+}
 
 
 
@@ -157,25 +158,6 @@ if(!isset($_SESSION["usuario"])){
 
             if(!$error_email && !$error_ciudad && !$error_pass && !$no_iguales && !$error_foto && $hay_modificaciones ){
 
-							if($foto!=null){
-								//SUBIDA FOTO DE PERFIL
-								$dir_subida = 'C:\xampp\htdocs\PARALUJAN\perfil\\'; //Movemos la imagen subida a la carpeta perfil\
-								//Aniado tanto el nombre del usuario como un numero aleatorio para que no se chafen los archivos
-								$fichero_subido = $dir_subida . $num . basename($_FILES['foto']['name']);
-
-								if (move_uploaded_file($_FILES['foto']['tmp_name'], $fichero_subido)) {
-										echo "<h2 id='titulos'>¡Registro completado!</h2>";
-								} else {
-									echo "<p id='error'>Error en la subida de la foto de perfil.</p><br>";
-								}
-
-								$fichero_subido = addslashes('\PARALUJAN\perfil\\' . $num . basename($_FILES['foto']['name']));
-
-								$sentenciafoto='UPDATE usuarios SET Foto="'.$fichero_subido.'" WHERE usuarios.NomUsuario="'.$_SESSION['usuario'].'"';
-								mysqli_query($link,$sentenciafoto);
-							}
-
-
               echo '<br>';
               echo '<h2 class="titulos">Modificaciones:</h2>';
               echo '<br>';
@@ -196,6 +178,30 @@ if(!isset($_SESSION["usuario"])){
                   $sentencia2='UPDATE usuarios SET Clave="'.$pass.'" WHERE usuarios.NomUsuario="'.$_SESSION['usuario'].'"';
                   mysqli_query($link,$sentencia2);
               }
+
+							if($foto!=null){
+								//SUBIDA FOTO DE PERFIL
+								$dir_subida = 'C:\xampp\htdocs\PARALUJAN\perfil\\'; //Movemos la imagen subida a la carpeta perfil\
+								//Aniado tanto el nombre del usuario como un numero aleatorio para que no se chafen los archivos
+								$fichero_subido = $dir_subida . $num . basename($_FILES['foto']['name']);
+
+								if (move_uploaded_file($_FILES['foto']['tmp_name'], $fichero_subido)) {
+										echo "<h2 id='titulos'>¡Registro completado!</h2>";
+								} else {
+									echo "<p id='error'>Error en la subida de la foto de perfil.</p><br>";
+								}
+
+								$fichero_subido = addslashes('\PARALUJAN\perfil\\' . $num . basename($_FILES['foto']['name']));
+
+								$sentenciafoto='UPDATE usuarios SET Foto="'.$fichero_subido.'" WHERE usuarios.NomUsuario="'.$_SESSION['usuario'].'"';
+								mysqli_query($link,$sentenciafoto);
+								$sentencia ='SELECT * FROM usuarios u, paises p WHERE u.NomUsuario="'.$_SESSION['usuario'].'" AND u.Pais=p.IdPais';
+		            $resultado = mysqli_query($link,$sentencia);
+								$fila=mysqli_fetch_assoc($resultado);
+
+								echo '<p>Nueva foto de perfil:  <img src="'.$fila['Foto'].'"></p>';
+							}
+
               echo '<p><a id="nuevafoto" href="menuusuarioregistrado.php">Volver</a></p>';
               echo '</fieldset></form>';
             }
@@ -226,14 +232,9 @@ if(!isset($_SESSION["usuario"])){
 
 				echo '<p id="informacion">No has realizado ninguna modificación</p>';
 
-
 			}
-
-
-
-
-            echo '<a href="modifdatos.php" id="nuevafoto">Volver</a>';
-          }
+        echo '<a href="modifdatos.php" id="nuevafoto">Volver</a>';
+    }
     ?>
 
 		<?php

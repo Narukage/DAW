@@ -24,7 +24,7 @@ require_once("inc/conexion.inc.php");
 
 	<main>
 			<ul class=navegacion>
-			<li ><a id="atras" title="Atrás" href="menuusuarioregistrado.php">Atrás</a></li>
+			<li ><a id="atras" title="Atrás" href="misdatos.php">Atrás</a></li>
 		</ul>
 		<br>
 
@@ -64,9 +64,9 @@ require_once("inc/conexion.inc.php");
                         <p>
                         <label>Repetir contraseña:</label><input type="password" name="pass_control2" >
                         </p>
-						              <label for="foto">Editar foto de perfil:</label><input type="file" name="foto" id="foto">
+						              <label for="foto">Editar foto de perfil:</label><input type="file" name="foto" id="foto"> <a href="confirmareliminacion.php" id="nuevafoto">Eliminar foto de perfil</a>
                         <p>
-                        <label></label><input type="submit" name="submit_control" value="Confirmar"> <a href="fotoeliminada.php" id="nuevafoto">Darse de baja</a>
+                        <label></label><input type="submit" name="submit_control" value="Confirmar">
                         </p>
                         </fieldset>
                         </form>';
