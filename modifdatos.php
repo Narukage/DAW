@@ -64,9 +64,12 @@ require_once("inc/conexion.inc.php");
                         <p>
                         <label>Repetir contraseña:</label><input type="password" name="pass_control2" >
                         </p>
-						              <label for="foto">Editar foto de perfil:</label><input type="file" name="foto" id="foto"> <a href="confirmareliminacion.php" id="nuevafoto">Eliminar foto de perfil</a>
+						              <label for="foto">Editar foto de perfil:</label><input type="file" name="foto" id="foto">
+									  <p><a href="confirmareliminacion.php" id="nuevafoto">Eliminar foto de perfil</a></p>
+								
                         <p>
-                        <label></label><input type="submit" name="submit_control" value="Confirmar">
+                        <input type="submit" name="submit_control" value="Confirmar">
+						
                         </p>
                         </fieldset>
                         </form>';
