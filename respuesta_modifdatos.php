@@ -110,13 +110,6 @@ if(!isset($_SESSION["usuario"])){
 				 || $_FILES["foto"]["type"] ==("image/tiff")
 				 || $_FILES["foto"]["type"] ==("image/svg+xml")
 				 ){
-					 if(ceil($_FILES["foto"]["size"]<2097152)){
-						 $foto=$_FILES["foto"]["tmp_name"];
-						 $hay_modificaciones=true; //porque todo va de puta madre
-					 }
-					 else{
-						 $error_tamanyo=true;
-					 }
 					 
 		 }
 		 else{
@@ -128,6 +121,13 @@ if(!isset($_SESSION["usuario"])){
 
 			$error_foto=true;
 		}
+		 if(ceil($_FILES["foto"]["size"])<8388608){
+						 $foto=$_FILES["foto"]["tmp_name"];
+						 $hay_modificaciones=true; //porque todo va de puta madre
+					 }
+					 else{
+						 $error_tamanyo=true;
+					 }
 	}
 	else{
 		
