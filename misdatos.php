@@ -101,6 +101,7 @@ if(!isset($_SESSION["usuario"])){
 
             <a href="modifdatos.php" id="nuevafoto">Modificar datos</a>
 						<a href="darsedebaja.php" id="nuevafoto">Darse de baja</a>
+						
 						<br></br>
                         </fieldset>
                         </form>';

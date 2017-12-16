@@ -21,10 +21,10 @@ require_once("inc/conexion.inc.php");
             require_once("inc/header.inc.php");
         }
 	?>
-	
+
 	<main>
 			<ul class=navegacion>
-			<li ><a id="atras" title="Atrás" href="menuusuarioregistrado.php">Atrás</a></li>
+			<li ><a id="atras" title="Atrás" href="misdatos.php">Atrás</a></li>
 		</ul>
 		<br>
 
@@ -49,7 +49,7 @@ require_once("inc/conexion.inc.php");
                 else{
                     $sexo="Mujer";
                 }
-                echo '<form action="respuesta_modifdatos.php" method="POST">
+                echo '<form enctype="multipart/form-data" action="respuesta_modifdatos.php" method="POST">
                         <fieldset>
                         <legend>Modificar datos</legend>
                         <p>
@@ -64,11 +64,12 @@ require_once("inc/conexion.inc.php");
                         <p>
                         <label>Repetir contraseña:</label><input type="password" name="pass_control2" >
                         </p>
-						<label for="editar">Editar foto de perfil:</label>
-							<input name="imagen" type="file" id="editar" />
-							
+						              <label for="foto">Editar foto de perfil:</label><input type="file" name="foto" id="foto">
+									  <p><a href="confirmareliminacion.php" id="nuevafoto">Eliminar foto de perfil</a></p>
+								
                         <p>
-                        <label></label><input type="submit" name="submit_control" value="Confirmar">
+                        <input type="submit" name="submit_control" value="Confirmar">
+						
                         </p>
                         </fieldset>
                         </form>';

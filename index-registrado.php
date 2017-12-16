@@ -60,7 +60,7 @@ require_once("inc/conexion.inc.php");
 	 	<ul>
 			<?php
 
-	            $sentencia= 'SELECT * FROM fotos,paises WHERE fotos.pais=paises.IdPais GROUP BY FRegistro ASC limit 5';
+	            $sentencia= 'SELECT * FROM fotos,paises WHERE fotos.pais=paises.IdPais GROUP BY FRegistro DESC limit 5';
 	            $resultado = mysqli_query($link, $sentencia);
 				while($fila=mysqli_fetch_assoc($resultado)){
 					echo "<li>
